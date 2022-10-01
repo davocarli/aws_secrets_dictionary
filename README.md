@@ -5,12 +5,12 @@ aws_secrets_dict is a Dictionary-based class acting as a wrapper for the [AWS Se
 
 ## Example Usage
 ```
-from aws_secrets_dictionary import AwsSecrets
+from aws_secrets_dict import AwsSecrets
 
 # Need AWS Key & Secret
-my_key = "Your AWS Secrets Access Key"
-my_secret = "Your AWS Secrets Secret Key"
-aws_region = "Your AWS Region - Defaults to 'us-east-2'"
+my_key = "Your AWS Secrets Access Key, or set 'AWS_SECRETS_KEY' env variable"
+my_secret = "Your AWS Secrets Secret Key or set 'AWS_SECRETS_SECRET' env variable"
+aws_region = "Your AWS Region or set 'AWS_REGION' env variable. If not set/specified, defaults to us-east-2"
 
 mysecrets = AwsSecrets(my_key, my_secret, aws_region)
 
