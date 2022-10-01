@@ -1,7 +1,6 @@
 import json
 from os import environ
 
-from django.http import response
 import boto3
 from botocore.exceptions import ClientError
 
