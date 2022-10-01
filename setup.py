@@ -9,7 +9,7 @@ def read_file(filename):
 setup(
   name = 'aws_secrets_dict',
   packages = ['aws_secrets_dict'],
-  version = '1.0.3',
+  version = '1.0.4',
   license='MIT',
   description = 'A class allowing you to interact with the AWS Secrets Manager with python dictionary syntax.',
   long_description=read_file('README.md'),
