@@ -7,8 +7,8 @@ from botocore.exceptions import ClientError
 class AwsSecrets():
 
     def __init__(self, key=None, secret=None, region=None):
-        self.key = key or environ.get('AWS_SECRETS_KEY')
-        self.secret = secret or environ.get('AWS_SECRETS_SECRET')
+        self.key = key or environ.get('AWS_ACCESS_KEY_ID')
+        self.secret = secret or environ.get('AWS_SECRET_ACCESS_KEY')
         self.region = region or environ.get('AWS_REGION', 'us-east-2')
         self.service_name = 'secretsmanager'
         self.session = boto3.session.Session(
