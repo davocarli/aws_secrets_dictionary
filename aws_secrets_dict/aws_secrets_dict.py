@@ -6,10 +6,11 @@ from botocore.exceptions import ClientError
 
 class AwsSecrets():
 
-    def __init__(self, key=None, secret=None, region=None):
+    def __init__(self, key=None, secret=None, region=None, prefix=None):
         self.key = key or environ.get('AWS_ACCESS_KEY_ID')
         self.secret = secret or environ.get('AWS_SECRET_ACCESS_KEY')
         self.region = region or environ.get('AWS_REGION', 'us-east-2')
+        self.prefix = prefix or environ.get('AWS_SECRET_PREFIX')
         self.service_name = 'secretsmanager'
         self.session = boto3.session.Session(
             aws_access_key_id = key,
@@ -20,13 +21,19 @@ class AwsSecrets():
             region_name = self.region
         )
 
+    def _prep_key(self, secret_name):
+        if self.prefix:
+            return f'{self.prefix}{secret_name}'
+        else:
+            return str(secret_name)
+
     def _get_secret(self, secret_name):
-        response = self.client.get_secret_value(SecretId=str(secret_name))
+        response = self.client.get_secret_value(SecretId=self._prep_key(secret_name))
         return response
 
     def _create_secret(self, secret_key, secret_value, secret_description=""):
         response = self.client.create_secret(
-            Name = str(secret_key),
+            Name = self._prep_key(secret_key),
             Description = str(secret_description),
             SecretString = json.dumps(secret_value),
         )
